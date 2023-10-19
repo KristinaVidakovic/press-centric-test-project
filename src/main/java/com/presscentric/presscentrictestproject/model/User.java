@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.ReadOnlyProperty;
 
@@ -20,16 +21,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User implements Serializable {
-
-        public User() {
-                super();
-        }
-
-        public User(final String name) {
-                super();
-                this.name = name;
-        }
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

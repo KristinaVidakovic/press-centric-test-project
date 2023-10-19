@@ -1,8 +1,11 @@
 package com.presscentric.presscentrictestproject.service;
 
+import com.presscentric.presscentrictestproject.exceptions.DuplicateEmailException;
 import com.presscentric.presscentrictestproject.model.User;
 import com.presscentric.presscentrictestproject.repository.IUserDao;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,18 +30,28 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void create(User user) {
-        iUserDao.create(user);
+        try {
+            user.setId(null);
+            iUserDao.create(user);
+        } catch (DataIntegrityViolationException exception) {
+            throw new DuplicateEmailException("Email already exists");
+        }
     }
 
     @Override
     @Transactional
     public User findById(Integer userId) {
-        return iUserDao.findOne(userId);
+        try {
+            return iUserDao.findOne(userId);
+        } catch (EntityNotFoundException exception) {
+            throw new EntityNotFoundException("Entity with ID " + userId + " not found");
+        }
     }
 
     @Override
     @Transactional
-    public void update(User user) {
+    public void update(User user, Integer userId) {
+        user.setId(userId);
         iUserDao.update(user);
     }
 

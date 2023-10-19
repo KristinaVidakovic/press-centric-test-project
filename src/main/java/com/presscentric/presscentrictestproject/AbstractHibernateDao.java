@@ -2,9 +2,7 @@ package com.presscentric.presscentrictestproject;
 
 import com.google.common.base.Preconditions;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -21,14 +19,15 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
     }
 
     public T findOne(final long id) {
-        return entityManager.find(clazz, id);
+        T entity = entityManager.find(clazz, id);
+        if (entity == null) {
+            throw new EntityNotFoundException("Entity with ID " + id + " not found");
+        }
+        return entity;
     }
 
     public List<T> findAll() {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clazz);
-        Root<T> root = criteriaQuery.from(clazz);
-        return entityManager.createQuery(criteriaQuery.select(root)).getResultList();
+        return (List<T>) entityManager.createQuery("from " + clazz.getName()).getResultList();
     }
 
     public void create(final T entity) {

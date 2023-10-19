@@ -45,8 +45,7 @@ public class UserController {
     @Transactional
     public ResponseEntity<Void> update (@PathVariable Integer userId,
                                         @Valid @RequestBody User user) {
-        user.setId(userId);
-        userService.update(user);
+        userService.update(user, userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
