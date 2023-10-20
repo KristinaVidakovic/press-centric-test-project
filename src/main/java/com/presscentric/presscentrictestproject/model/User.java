@@ -1,10 +1,7 @@
 package com.presscentric.presscentrictestproject.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,5 +36,6 @@ public class User implements Serializable {
         @NotNull(message = "Name can not be null")
         @NotEmpty(message = "Name can not be empty")
         @NotBlank(message = "Name can not be blank")
+        @Size(min = 1, max = 30, message = "Name can be 30 characters long max")
         private String name;
 }
