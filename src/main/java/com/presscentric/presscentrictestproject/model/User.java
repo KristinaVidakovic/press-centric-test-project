@@ -1,5 +1,6 @@
 package com.presscentric.presscentrictestproject.model;
 
+import com.presscentric.presscentrictestproject.configuration.AlphaCharactersOnly;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -37,5 +38,6 @@ public class User implements Serializable {
         @NotEmpty(message = "Name can not be empty")
         @NotBlank(message = "Name can not be blank")
         @Size(min = 1, max = 30, message = "Name can be 30 characters long max")
+        @AlphaCharactersOnly
         private String name;
 }
