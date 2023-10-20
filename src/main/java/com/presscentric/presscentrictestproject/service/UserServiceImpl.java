@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public List<User> findAll() {
         return iUserDao.findAll();
     }
@@ -39,7 +38,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public User findById(Integer userId) {
         try {
             return iUserDao.findOne(userId);

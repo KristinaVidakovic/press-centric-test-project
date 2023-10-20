@@ -21,7 +21,6 @@ public class UserController {
     }
 
     @GetMapping(value = "")
-    @Transactional
     public ResponseEntity<List<User>> findAll () {
         List<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -35,7 +34,6 @@ public class UserController {
     }
 
     @GetMapping(value = "/{userId}")
-    @Transactional
     public ResponseEntity<User> getById (@PathVariable Integer userId) {
         User user = userService.findById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
