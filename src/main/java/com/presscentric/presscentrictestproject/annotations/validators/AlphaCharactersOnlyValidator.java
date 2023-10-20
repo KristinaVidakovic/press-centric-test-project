@@ -1,5 +1,6 @@
-package com.presscentric.presscentrictestproject.configuration;
+package com.presscentric.presscentrictestproject.annotations.validators;
 
+import com.presscentric.presscentrictestproject.annotations.AlphaCharactersOnly;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

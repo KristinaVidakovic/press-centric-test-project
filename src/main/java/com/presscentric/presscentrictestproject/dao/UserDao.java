@@ -1,7 +1,6 @@
-package com.presscentric.presscentrictestproject.repository;
+package com.presscentric.presscentrictestproject.dao;
 
 import com.google.common.base.Preconditions;
-import com.presscentric.presscentrictestproject.AbstractHibernateDao;
 import com.presscentric.presscentrictestproject.exceptions.DuplicateEmailException;
 import com.presscentric.presscentrictestproject.model.User;
 import org.springframework.stereotype.Repository;

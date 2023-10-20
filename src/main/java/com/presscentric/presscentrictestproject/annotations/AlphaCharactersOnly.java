@@ -1,5 +1,6 @@
-package com.presscentric.presscentrictestproject.configuration;
+package com.presscentric.presscentrictestproject.annotations;
 
+import com.presscentric.presscentrictestproject.annotations.validators.AlphaCharactersOnlyValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -12,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = AlphaCharactersOnlyValidator.class)
 public @interface AlphaCharactersOnly {
-    String message() default "Name must contain only alphabetical characters";
+    String message() default "Attribute must contain only alphabetical characters";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,4 +1,4 @@
-package com.presscentric.presscentrictestproject.repository;
+package com.presscentric.presscentrictestproject.dao;
 
 import com.presscentric.presscentrictestproject.model.User;
 

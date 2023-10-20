@@ -2,7 +2,7 @@ package com.presscentric.presscentrictestproject.service;
 
 import com.presscentric.presscentrictestproject.exceptions.DuplicateEmailException;
 import com.presscentric.presscentrictestproject.model.User;
-import com.presscentric.presscentrictestproject.repository.IUserDao;
+import com.presscentric.presscentrictestproject.dao.IUserDao;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

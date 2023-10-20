@@ -1,6 +1,6 @@
 package com.presscentric.presscentrictestproject.model;
 
-import com.presscentric.presscentrictestproject.configuration.AlphaCharactersOnly;
+import com.presscentric.presscentrictestproject.annotations.AlphaCharactersOnly;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.presscentric.presscentrictestproject;
+package com.presscentric.presscentrictestproject.dao;
 
 import com.google.common.base.Preconditions;
 import jakarta.persistence.EntityManager;
