@@ -15,6 +15,6 @@ public class AlphaCharactersOnlyValidator implements ConstraintValidator<AlphaCh
             return true;
         }
 
-        return value.matches("^[a-zA-Z]*$");
+        return value.matches("^[a-zA-Z ]*$");
     }
 }
