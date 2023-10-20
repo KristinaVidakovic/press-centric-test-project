@@ -3,6 +3,7 @@ package com.presscentric.presscentrictestproject;
 import com.google.common.base.Preconditions;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -49,6 +50,16 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
         final T entity = findOne(entityId);
         Preconditions.checkState(entity != null);
         delete(entity);
+    }
+
+    public T getBy(final String attribute, final String value) {
+        try {
+            return (T) entityManager.createQuery("from "+ clazz.getName() + " where "+ attribute + " = :value")
+                    .setParameter("value", value)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 }

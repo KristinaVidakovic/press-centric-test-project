@@ -9,7 +9,7 @@ public interface IUserDao {
 
     List<User> findAll();
 
-    void update(User entity);
+    void update(User entity, Integer entityId);
 
     void create(User entity);
 
