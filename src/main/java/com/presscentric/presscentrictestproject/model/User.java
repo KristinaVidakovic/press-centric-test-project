@@ -38,6 +38,6 @@ public class User implements Serializable {
         @NotEmpty(message = "Name can not be empty")
         @NotBlank(message = "Name can not be blank")
         @Size(min = 1, max = 30, message = "Name can be 30 characters long max")
-        @AlphaCharactersOnly
+        @AlphaCharactersOnly(message = "Name must contain only alphabetical characters")
         private String name;
 }
