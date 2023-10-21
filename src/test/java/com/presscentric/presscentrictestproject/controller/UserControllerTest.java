@@ -21,7 +21,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -71,6 +73,76 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Method create return error message 'Email is not valid' and status BAD REQUEST")
+    public void testCreateInvalidEmail() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("email", "em h@k");
+        User user = ObjectMother.createUser(Optional.of(map));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                .content(asJsonString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value("Email is not valid"));
+    }
+
+    @Test
+    @DisplayName(value = "Method create return error message 'Email can not be empty' and status BAD REQUEST")
+    public void testCreateEmptyEmail() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("email", "");
+        User user = ObjectMother.createUser(Optional.of(map));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                        .content(asJsonString(user))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value("Email can not be empty"));
+    }
+
+    @Test
+    @DisplayName(value = "Method create return error message 'Name can not be empty' and status BAD REQUEST")
+    public void testCreateEmptyName() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "");
+        User user = ObjectMother.createUser(Optional.of(map));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                        .content(asJsonString(user))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value("Name can not be empty"));
+    }
+
+    @Test
+    @DisplayName(value = "Method create return error message 'Name must contain only alphabetical characters' and status BAD REQUEST")
+    public void testCreateInvalidName() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "Ina123");
+        User user = ObjectMother.createUser(Optional.of(map));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                        .content(asJsonString(user))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value("Name must contain only alphabetical characters"));
+    }
+
+    @Test
+    @DisplayName(value = "Method create return error message 'Name can be 30 characters long max' and status BAD REQUEST")
+    public void testCreateLongName() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "Inaekoplut Jkotgnuhapkqwertyhnpnocs");
+        User user = ObjectMother.createUser(Optional.of(map));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                        .content(asJsonString(user))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value("Name can be 30 characters long max"));
+    }
+
+    @Test
     @DisplayName(value = "Method getById returns user by forwarded ID successfully and status OK")
     public void testGetById() throws Exception {
         int userId = 1;
@@ -83,6 +155,16 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(user.getEmail()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(user.getName()));
+    }
+
+    @Test
+    @DisplayName(value = "Method getById returns error message and status BAD REQUEST")
+    public void testGetByIdInvalidFormat() throws Exception {
+        String userId = "ko";
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}", userId))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value("For input string: \"" + userId + "\""));
     }
 
     @Test
